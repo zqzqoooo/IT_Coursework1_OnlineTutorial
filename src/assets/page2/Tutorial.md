@@ -22,7 +22,7 @@ In preparing to write any code, you need a reliable development environment. Thi
     * This command automatically enables the required Windows features, downloads the latest Linux kernel, and installs the **Ubuntu** distribution by default.
     * After the installation is complete, **restart your computer**.
     
-    ![alt text](/presentation/src/assets/page2/images/md-1.png)
+    ![alt text](/IT_Coursework1_OnlineTutorial/src/assets/page2/images/md-1.png)
 
 3.  **Initialize Ubuntu**:
     * After restarting, Ubuntu will launch automatically. If not, you can find it in your Start Menu.
@@ -68,7 +68,7 @@ We don't recommend installing Node.js directly. Instead, we'll use **nvm** (Node
     ```
     If you see version numbers (e.g., `v20.11.1` and `10.2.4`), congratulations, your environment is ready!
     
-    ![alt text](/presentation/src/assets/page2/images/md-2.png)
+    ![alt text](/IT_Coursework1_OnlineTutorial/src/assets/page2/images/md-2.png)
 
 ---
 
@@ -160,7 +160,7 @@ Now you will use the officially recommended tool, `Vite` (an extremely fast buil
         ```
 
 8.  In your **Windows browser**, open the address it shows (usually `http://localhost:5173/`). You will see the Vue welcome page!
-![alt text](/presentation/src/assets/page2/images/md-3.png)
+![alt text](/IT_Coursework1_OnlineTutorial/src/assets/page2/images/md-3.png)
 ---
 
 ## Part 3: Introduction to Core Modules (Composition API)
@@ -492,7 +492,7 @@ function requestDelete() {
 }
 </style>
 ```
-![alt text](/presentation/src/assets/page2/images/md-4.png)
+![alt text](/IT_Coursework1_OnlineTutorial/src/assets/page2/images/md-4.png)
 -----
 
 ## Part 5: Final Code Dissection
