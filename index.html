@@ -1,15 +1,1012 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/presentation/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vite-project</title>
-    <script type="module" crossorigin src="/presentation/assets/index-u5I8NtkC.js"></script>
-    <link rel="stylesheet" crossorigin href="/presentation/assets/index-ZYtUN7qy.css">
-  </head>
-  <body>
-    <div id="root"></div>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CW1 Presentation - Vue.js</title>
+    <!-- 1. Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 2. Load highlight.js (for code highlighting in tutorial) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <!-- 3. Custom Styles (Apple-inspired) -->
+    <style>
+        /* Use system fonts for a clean, Apple-like feel */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
 
-  </body>
+        /* Tutorial Content Styling */
+        .tutorial-content {
+            max-width: 80ch; /* Optimized for reading */
+        }
+        /* Headings: Deeper color, clearer weight */
+        .tutorial-content h1 { 
+            font-size: 2.5rem; /* 36px */
+            font-weight: 700; 
+            color: #1f2937; /* text-gray-900 */
+            border-bottom: 1px solid #d1d5db; /* border-gray-300 */
+            padding-bottom: 0.3em;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        .tutorial-content h2 { 
+            font-size: 2rem; /* 30px */
+            font-weight: 600; 
+            color: #1f2937;
+            border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+            padding-bottom: 0.3em;
+            margin-top: 2em;
+            margin-bottom: 1em;
+        }
+        .tutorial-content h3 { 
+            font-size: 1.5rem; /* 24px */
+            font-weight: 600; 
+            color: #1f2937;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        
+        /* Body text: Softer black for readability */
+        .tutorial-content p, .tutorial-content li {
+            font-size: 1.125rem; /* 18px */
+            line-height: 1.75;
+            color: #374151; /* text-gray-700 */
+        }
+        .tutorial-content ul {
+            list-style-type: disc;
+            padding-left: 2em;
+            margin-bottom: 1em;
+        }
+        .tutorial-content ol {
+            list-style-type: decimal;
+            padding-left: 2em;
+            margin-bottom: 1em;
+        }
+        .tutorial-content a {
+            color: #2563eb; /* text-blue-600 */
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .tutorial-content a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Code blocks: Dark for contrast */
+        .tutorial-content pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 1em;
+            margin-bottom: 1.5em;
+        }
+        .tutorial-content pre code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+        
+        /* Inline code: Light background, distinct color */
+        .tutorial-content code:not(pre *) {
+            background-color: #f3f4f6; /* bg-gray-100 */
+            color: #d6336c; /* a pink/red color */
+            padding: 0.25em 0.5em;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        /* Blockquotes: Softer style */
+        .tutorial-content blockquote {
+            border-left: 4px solid #9ca3af; /* border-gray-400 */
+            background-color: #f9fafb; /* bg-gray-50 */
+            padding: 1rem 1.5rem;
+            margin: 1.5em 0;
+            color: #4b5563; /* text-gray-600 */
+        }
+        .tutorial-content strong {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        /* Presentation slide content styles */
+        .slide-content p {
+            margin-bottom: 1rem;
+        }
+        .slide-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- =======================
+         Navbar
+    ======================== -->
+    <nav class="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Title -->
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl font-bold text-gray-800">CW1 - Vue.js</span>
+                </div>
+                <!-- Navigation Links -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="#" class="nav-link active-link text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium" onclick="showPage('home')">
+                        Home
+                    </a>
+                    <a href="#" class="nav-link text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium" onclick="showPage('presentation')">
+                        Presentation
+                    </a>
+                    <a href="#" class="nav-link text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium" onclick="showPage('tutorial')">
+                        Tutorial
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- =======================
+         Page Content Container
+    ======================== -->
+    <main class="pt-16">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+
+            <!-- =======================
+                 Page 1: Home (Default)
+            ======================== -->
+            <div id="page-home" class="page-content bg-white shadow-lg rounded-lg p-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Internet Technologies - CW1</h1>
+                <h2 class="text-3xl font-semibold text-indigo-600 mb-8">Topic: Vue.js Framework Research and Tutorial</h2>
+                
+                <div class="border-t border-gray-200 pt-6">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Group Members:</h3>
+                    <ul class="list-disc list-inside space-y-2 text-lg text-gray-600">
+                        <li>[Member 1's Name]</li>
+                        <li>[Member 2's Name]</li>
+                        <li>[Member 3's Name]</li>
+                        <li>[Member 4's Name]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- =======================
+                 Page 2: Presentation (Hidden)
+                 *** CONTENT TRANSLATED ***
+            ======================== -->
+            <div id="page-presentation" class="page-content bg-white shadow-lg rounded-lg p-8" style="display:none;">
+                <h1 class="text-3xl font-bold text-gray-900 mb-8">Presentation: Vue.js Framework Deep Dive</h1>
+                
+                <div class="space-y-16">
+                    
+                    <!-- Page 1, 2: Title and Introduction -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80">
+                            <img src="Slides/slide1.png" alt="Page 1-2: Title and Introduction" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide1.png+Not+Found'">
+                        </div>
+                        <div class="slide-content">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 1 & 2: Welcome & Introduction</h3>
+                            <div class="text-gray-700 text-base leading-relaxed">
+                                <p>Hello! Welcome to our presentation. Our topic is Vue.js.</p>
+                                <!-- Introduction content can go here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 3: Placeholder -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="slide-content md:order-2">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 3: [Your PPT Title]</h3>
+                            <p class="text-gray-700 text-base leading-relaxed">
+                                This is a placeholder. You can add your speech notes or description for Page 3 here.
+                            </p>
+                        </div>
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80 md:order-1">
+                            <img src="Slides/slide2.png" alt="Page 3: Placeholder" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide2.png+Not+Found'">
+                        </div>
+                    </div>
+
+                    <!-- Page 4: Vue.js Introduction -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80">
+                            <img src="Slides/slide3.png" alt="Page 4: Vue.js Introduction" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide3.png+Not+Found'">
+                        </div>
+                        <div class="slide-content">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 4: Intro to Vue.js (Carving vs. LEGOs)</h3>
+                            <div class="text-gray-700 text-base leading-relaxed">
+                                <p>Okay, let's officially start by introducing what Vue.js is.</p>
+                                <p>To help you understand Vue most intuitively, I want you to imagine two scenarios: <strong>carving wood</strong> and <strong>building with LEGOs</strong>.</p>
+                                <p>Native web development, which we're all familiar with, is like 'carving wood'. You start with a raw block of wood (empty HTML and JS), and you must act as a craftsman, holding a chisel (commands like <code>getElementById</code>, <code>createElement</code>), and meticulously carve the page, step-by-step, into what you want. This process is precise but also very tedious. You have to care about every single step. This is what we call '<strong>imperative</strong>' development.</p>
+                                <p>Vue.js, on the other hand, completely changes the game. It's like 'building with LEGOs'. Vue has already prepared a huge box of standardized, functional 'bricks', which in the Vue world, we call '<strong>Components</strong>'.</p>
+                                <p>Your job is no longer to carve, but to 'assemble'. You just need to '<strong>declare</strong>': 'I need a header (Brick A), a sidebar (Brick B), and a comment section (Brick C)', and then you snap them together. You care about 'what I want'—the final result—not the tedious process of 'how to get there'. This is '<strong>declarative</strong>' development.</p>
+                                <p>This clever 'brick system' was created by ex-Google engineer Evan You. Its biggest feature is that it's '<strong>Progressive</strong>', meaning you can use these 'LEGOs' to build a giant castle (a complex Single Page App), or you can just take one tiny brick to decorate your original 'wood carving' (add a bit of interactivity to an old project).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 5: Declarative Development -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="slide-content md:order-2">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 5: Declarative Development</h3>
+                             <div class="text-gray-700 text-base leading-relaxed">
+                                <p>We just mentioned 'declarative', and this concept is the soul of Vue, so let's dive deeper.</p>
+                                <p>'Declarative' development fundamentally changes your focus. In the past, if a piece of data changed, you had to worry about two things: 1. Updating the data, and 2. Manually writing code to update the page.</p>
+                                <p>Look at this diagram. In the world of Vue, the only thing you need to care about is the '<strong>Data</strong>' (your JavaScript object). For example, you define a piece of data called <code>count</code> with a value of 0.</p>
+                                <p>Then, you only need to 'declare' once in your HTML: 'Hey, the content of this <code>&lt;h1&gt;</code> tag, please stay in sync with my <code>count</code> data forever.' This process is called '<strong>Binding</strong>'.</p>
+                                <p>From this moment on, something magical happens: you never have to touch that <code>&lt;h1&gt;</code> tag again. Your entire job is now just to modify the <code>count</code> data.</p>
+                                <p>When you execute <code>count++</code>, Vue's '<strong>Reactivity System</strong>' automatically detects: 'Oh! count changed!' It then immediately and automatically updates the <code>&lt;h1&gt;</code> tag to show 1.</p>
+                                <p>This is '<strong>Data-Driven View</strong>'. Your job shifts from tedious 'wood carving' (manual DOM manipulation) to clear 'data management' (managing your JS objects). This massively reduces our code, makes the logic clearer, and is far less error-prone.</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80 md:order-1">
+                            <img src="Slides/slide4.png" alt="Page 5: Declarative Development" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide4.png+Not+Found'">
+                        </div>
+                    </div>
+
+                    <!-- Page 6: Progressive Framework -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80">
+                            <img src="Slides/slide5.png" alt="Page 6: Progressive Framework" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide5.png+Not+Found'">
+                        </div>
+                        <div class="slide-content">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 6: Progressive Framework</h3>
+                            <div class="text-gray-700 text-base leading-relaxed">
+                                <p>What does 'progressive' mean? It means Vue is incredibly flexible. Like our LEGOs, you can decide how much of it to use based on your needs.</p>
+                                <p><strong>First way:</strong> The simplest. Imagine you already have a website. You don't want to rewrite it, you just want one part, like a comment section, to be smarter. No problem. You add one <code>&lt;script&gt;</code> tag to your HTML to include Vue, and you can immediately enjoy 'declarative' benefits. This is perfect for enhancing old projects, and it's what we'll do in our tutorial.</p>
+                                <p><strong>Second way:</strong> Your goal is to build a complete 'Single Page App' (SPA), like GMail, where clicking links doesn't refresh the whole page. Vue can do this too. It provides official plugins like Vue Router to manage page navigation.</p>
+                                <p><strong>Third way:</strong> Your goal is to build a massive, complex enterprise app like GitLab. Vue can also do this. It offers a full 'ecosystem' of tools, like Pinia (for managing shared data) and Vite (for lightning-fast development and building).</p>
+                                <p>So, the core advantage of 'progressive' is: it's very easy to start with, but its ceiling is extremely high. This flexibility is something many other frameworks lack.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 7: Placeholder -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="slide-content md:order-2">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 7: [Your PPT Title]</h3>
+                            <p class="text-gray-700 text-base leading-relaxed">
+                                This is a placeholder. You can add your speech notes or description for Page 7 here.
+                            </p>
+                        </div>
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80 md:order-1">
+                            <img src="Slides/slide6.png" alt="Page 7: Placeholder" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide6.png+Not+Found'">
+                        </div>
+                    </div>
+
+                    <!-- Page 8: Why use Vue? -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80">
+                            <img src="Slides/slide7.png" alt="Page 8: Why use Vue?" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide7.png+Not+Found'">
+                        </div>
+                        <div class="slide-content">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 8: Why use Vue? (vs. Native)</h3>
+                            <div class="text-gray-700 text-base leading-relaxed">
+                                <p>So, to summarize our previous two core ideas, 'Why do we choose Vue?'</p>
+                                <p>The fundamental reason is that it brings a complete shift in mindset.</p>
+                                <p><strong>Native JavaScript is 'imperative'</strong>, like 'carving wood'. You must care about every step of 'how to do it': manually find the DOM element, manually update it. Data and view are separate, and you write a lot of code to 'command' them to stay in sync.</p>
+                                <p><strong>Vue.js is 'declarative'</strong>, like 'building with LEGOs'. You only care about 'what to do'—your desired result. You 'bind' the data and the view together, and then you just modify the data. Vue's reactivity system automatically handles all the tedious DOM operations for you.</p>
+                                <p>This shift frees us from the tedious 'process' and lets us focus on what's truly important: the 'data' and the 'state'. This is why Vue dramatically improves development efficiency and code maintainability.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 9: Vue's Industry Position -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="slide-content md:order-2">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 9: Vue's Industry Position (Usage & Community)</h3>
+                            <div class="text-gray-700 text-base leading-relaxed">
+                                <p>A framework can be great, but if no one uses it, it's just a toy. So what is Vue's status in the real world?</p>
+                                <p>The data is astounding. According to the authoritative "State of JavaScript 2023" survey, Vue.js is the second most-used front-end framework globally, with over half of all respondents using it.</p>
+                                <p>More importantly, Vue has an extremely strong and healthy '<strong>ecosystem</strong>'. When you build large apps, Vue provides the best-in-class, official solutions for routing (Vue Router) and state management (Pinia).</p>
+                                <p>Its community is incredibly active, and there are more learning resources than you'll ever need.</p>
+                                <p>Finally, look at who uses it. From Alibaba and GitLab to Nintendo, and even parts of projects at Netflix and Facebook. The adoption by these top-tier companies fully validates Vue's stability and reliability in large-scale projects.</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80 md:order-1">
+                            <img src="Slides/slide8.png" alt="Page 9: Vue's Industry Position" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide8.png+Not+Found'">
+                        </div>
+                    </div>
+
+                    <!-- Page 10: Placeholder -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80">
+                            <img src="Slides/slide9.png" alt="Page 10: Placeholder" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide9.png+Not+Found'">
+                        </div>
+                        <div class="slide-content">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 10: [Your PPT Title]</h3>
+                            <p class="text-gray-700 text-base leading-relaxed">
+                                This is a placeholder. You can add your speech notes or description for Page 10 here.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Page 11: Prerequisites for Learning Vue -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="slide-content md:order-2">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 11: What Do You Need to Learn Vue?</h3>
+                            <div class="text-gray-700 text-base leading-relaxed">
+                                <p>After talking about so many benefits of Vue, you might be thinking: 'This framework is so powerful, is it hard to learn?'</p>
+                                <p>This is the best news: Vue is famous for its gentle learning curve. The prerequisites to start learning Vue are exactly what we've been learning in this course: the 'web trio'.</p>
+                                <ol class="list-decimal list-inside space-y-2 mt-4">
+                                    <li><strong>HTML:</strong> You need to be familiar with HTML. Vue's templates are written in HTML; it's like "super HTML".</li>
+                                    <li><strong>CSS:</strong> You need to understand CSS, because the final page still needs CSS for styling.</li>
+                                    <li><strong>JavaScript:</strong> Most importantly, you need to grasp the fundamentals of JavaScript. Things like variables, functions, objects, and array manipulation. You don't need to be a JS master to start, but the more solid your foundation, the faster you'll learn.</li>
+                                </ol>
+                                <p class="mt-4">So, the knowledge you are gaining right now is the perfect foundation for becoming a Vue developer.</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80 md:order-1">
+                            <img src="Slides/slide10.png" alt="Page 11: Prerequisites" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide10.png+Not+Found'">
+                        </div>
+                    </div>
+
+                    <!-- Page 12: Example Comparison (1) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80">
+                            <img src="Slides/slide11.png" alt="Page 12: Example Comparison (1)" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide11.png+Not+Found'">
+                        </div>
+                        <div class="slide-content">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 12: Comparison (1) - "Modular" Page Structure</h3>
+                            <div class="text-gray-700 text-base leading-relaxed">
+                                <p>Let's look at a real example: a page with a header, sidebar, and comment section.</p>
+                                <p><strong>Native HTML (left placeholder):</strong> Very direct, but also very 'flat' and 'bloated'. All the HTML for the header, sidebar, and comments is piled into one file. As the page gets more complex, this file becomes hundreds of lines long.</p>
+                                <p><strong>Vue (right placeholder):</strong> Now look at the <code>&lt;body&gt;</code> organized with Vue. It's incredibly clean. It's like a 'table of contents'. You can instantly understand: 'Okay, this app is made of a <code>&lt;TheHeader&gt;</code>, a <code>&lt;TheSidebar&gt;</code>, and a <code>&lt;CommentSection&gt;</code>.'</p>
+                                <p>Vue lets us package an entire block of HTML into a custom tag, like <code>&lt;TheHeader&gt;</code>. This is the visual representation of 'structural modularity'.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 13: Example Comparison (2) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="slide-content md:order-2">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 13: Comparison (2) - "Modular" Logic</h3>
+                            <div class="text-gray-700 text-base leading-relaxed">
+                                <p>This 'modularity' isn't just in the HTML; it's even more critical in the JavaScript logic.</p>
+                                <p><strong>Native JS (left placeholder):</strong> All our logic—header logic, comment logic—is mixed together in one giant file. They share global variables and get tangled. This is 'high coupling'.</p>
+                                <p><strong>Vue (right placeholder):</strong> Every 'LEGO brick' (component) is an independent 'box'. The <code>TheHeader</code> component is its own little world. The <code>CommentSection</code> component is also its own world, managing its own comment list (data) and add-comment function (methods).</p>
+                                <p>They don't interfere with each other. This is 'high cohesion, low coupling' and the essence of our 'LEGO' metaphor.</p>
+                                <p>This modular thinking makes our code extremely easy to maintain, test, and reuse. If you want a comment section on another page, you just drop in the <code>&lt;CommentSection&gt;</code> brick.</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80 md:order-1">
+                            <img src="Slides/slide12.png" alt="Page 13: Example Comparison (2)" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide12.png+Not+Found'">
+                        </div>
+                    </div>
+
+                    <!-- Page 14: Placeholder -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80">
+                            <img src="Slides/slide13.png" alt="Page 14: Placeholder" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide13.png+Not+Found'">
+                        </div>
+                        <div class="slide-content">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 14: [Your PPT Title]</h3>
+                            <p class="text-gray-700 text-base leading-relaxed">
+                                This is a placeholder. You can add your speech notes or description for Page 14 here.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Page 15: Conclusion -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="slide-content md:order-2">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 15: Conclusion</h3>
+                            <div class="text-gray-700 text-base leading-relaxed">
+                                <p>So, let's summarize. Today we've learned that Vue.js isn't just a tool; it's a more advanced way of thinking about development.</p>
+                                <ul class="list-disc list-inside space-y-2 mt-4">
+                                    <li>It moves us from '<strong>imperative</strong>' to '<strong>declarative</strong>', freeing us from 'carving wood' (tedious DOM operations) to focus on what matters: 'data' and 'state'.</li>
+                                    <li>It lets us '<strong>build with LEGOs</strong>' using a powerful '<strong>Component System</strong>' to create complex, maintainable applications in a modular way.</li>
+                                    <li>Finally, it has a strong, friendly community and is built on the HTML, CSS, and JS fundamentals you are already learning in this course.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80 md:order-1">
+                            <img src="Slides/slide14.png" alt="Page 15: Conclusion" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide14.png+Not+Found'">
+                        </div>
+                    </div>
+
+                    <!-- Page 16: Q&A -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="bg-gray-200 rounded-lg flex items-center justify-center h-64 md:h-80">
+                            <img src="Slides/slide15.png" alt="Page 16: Q&A" class="w-full h-full object-cover rounded-lg shadow-md" onerror="this.src='https://placehold.co/600x400/ef4444/ffffff?text=Slides/slide15.png+Not+Found'">
+                        </div>
+                        <div class="slide-content">
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Page 16: Q&A</h3>
+                            <p class="text-gray-700 text-base leading-relaxed">
+                                Thank you for listening. Now it's time for questions.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- =======================
+                 Page 3: Tutorial (Hidden)
+                 (This section is already in English)
+            ======================== -->
+            <div id="page-tutorial" class="page-content bg-white shadow-lg rounded-lg p-8" style="display:none;">
+                <!-- Tutorial content container -->
+                <article class="tutorial-content mx-auto">
+                    
+                    <h1>Complete Vue.js Tutorial: Build a "Highland Games Event Planner" from Scratch</h1>
+
+                    <p><strong>Tutorial Goal:</strong> Welcome to this complete guide to Vue.js! This tutorial will take you from zero, installing all necessary tools in a clean Ubuntu environment, configuring and creating a Vue.js project, learning its core modules, and finally building a fully functional web app (complete with add, delete, and persistence features).</p>
+
+                    <h2>Part 1: Environment Setup (Ubuntu & Node.js)</h2>
+                    
+                    <p>In preparing to write any code, you need a reliable development environment. This tutorial will use <strong>WSL (Windows Subsystem for Linux)</strong> to run a full Ubuntu system on Windows.</p>
+
+                    <blockquote>
+                        <p><strong>Note:</strong> If you are on macOS or a desktop Linux (like Ubuntu Desktop), your system is already set. You just need to skip to <strong>Step 3</strong> of this section and install Node.js.</p>
+                    </blockquote>
+
+                    <h3>Step 1: Install WSL 2 and Ubuntu on Windows</h3>
+                    <ol>
+                        <li>
+                            <strong>Open PowerShell as Administrator</strong>:
+                            <p>Click the Start Menu, search for "PowerShell". Right-click "Windows PowerShell" and select "Run as administrator".</p>
+                        </li>
+                        <li>
+                            <strong>Install WSL</strong>:
+                            <p>In PowerShell, enter the following command and press Enter:</p>
+<pre><code class="language-powershell">wsl --install</code></pre>
+                            <p>This command automatically enables the required Windows features, downloads the latest Linux kernel, and installs the <strong>Ubuntu</strong> distribution by default. After the installation is complete, <strong>restart your computer</strong>.</p>
+                        </li>
+                        <li>
+                            <strong>Initialize Ubuntu</strong>:
+                            <p>After restarting, Ubuntu will launch automatically. If not, you can find it in your Start Menu. On the first launch, it will ask you to create a new <strong>UNIX username and password</strong>.</p>
+                            <p><strong>Important:</strong> This password is used when you need to install software (using <code>sudo</code>) in this Ubuntu environment. Remember it.</p>
+                        </li>
+                    </ol>
+
+                    <h3>Step 2: (Best Practice) Install Node.js using nvm</h3>
+                    <p>We don't recommend installing Node.js directly. Instead, we'll use <strong>nvm</strong> (Node Version Manager). This allows you to easily switch between different Node.js versions for different projects.</p>
+                    <ol>
+                        <li><strong>Open your Ubuntu terminal</strong>.</li>
+                        <li>
+                            <strong>Update package lists</strong>:
+<pre><code class="language-bash">sudo apt update</code></pre>
+                        </li>
+                        <li>
+                            <strong>Install <code>curl</code></strong> (used to download the nvm install script):
+<pre><code class="language-bash">sudo apt install curl</code></pre>
+                        </li>
+                        <li>
+                            <strong>Install nvm</strong>:
+<pre><code class="language-bash">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash</code></pre>
+                        </li>
+                        <li>
+                            <strong>Activate nvm</strong> (close and reopen your terminal, or run):
+<pre><code class="language-bash">source ~/.bashrc</code></pre>
+                        </li>
+                        <li>
+                            <strong>Install the Node.js LTS version</strong>:
+                            <p>LTS (Long Term Support) is the most stable version.</p>
+<pre><code class="language-bash">nvm install --lts</code></pre>
+                        </li>
+                        <li>
+                            <strong>Verify installation</strong>:
+<pre><code class="language-bash">node -v
+npm -v</code></pre>
+                            <p>If you see version numbers (e.g., <code>v20.11.1</code> and <code>10.2.4`), congratulations, your environment is ready!</p>
+                        </li>
+                    </ol>
+
+                    <h2>Part 2: Project Configuration (Creating the Vue Project)</h2>
+                    <p>Now you will use the officially recommended tool, <code>Vite</code> (an extremely fast build tool), to create your Vue project.</p>
+
+                    <ol>
+                        <li>
+                            <p>In your Ubuntu terminal, navigate to a directory where you like to keep your projects (e.g., <code>~/projects</code>), and run:</p>
+<pre><code class="language-bash">npm create vue@latest</code></pre>
+                        </li>
+                        <li>
+                            <p>You will see an interactive menu.</p>
+<pre><code class="language-text">┌  Vue.js - The Progressive JavaScript Framework
+│
+◇  Project name (target directory):
+│  vue-highland-games</code></pre>
+                            <p><strong>Project name:</strong> Type your project name, like <code>vue-highland-games</code>, and press <strong>Enter</strong>.</p>
+                        </li>
+                        <li>
+                            <p>Next is the <strong>"Select features"</strong> menu.</p>
+<pre><code class="language-text">◇  Select features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to confirm)
+│  none</code></pre>
+                            <p><strong>How to use:</strong></p>
+                            <ul>
+                                <li>Use the <strong>Up/Down arrow keys (↑/↓)</strong> to move the cursor.</li>
+                                <li>Use the <strong>Spacebar</strong> to select or deselect a feature.</li>
+                                <li>Once you've made your selections, press <strong>Enter</strong> to confirm.</li>
+                            </ul>
+                            <p><strong>Our Selections:</strong><br>
+                            We only need two features: <strong>ESLint</strong> and <strong>Prettier</strong>. Use the arrow keys and spacebar to select them.</p>
+<pre><code class="language-text">❯ ◉ TypeScript
+  ◯ JSX Support
+  ◯ Vue Router for Single-Page Application development?
+  ◯ Pinia for state management?
+  ◯ Vitest for Unit Testing?
+  ◉ ESLint for code quality?
+  ◉ Prettier for code formatting?</code></pre>
+                            <p><strong>Why these choices?</strong></p>
+                            <ul>
+                                <li><strong>TypeScript (No):</strong> Adds strict type-checking to JS. It's great for large projects but adds complexity to our tutorial.</li>
+                                <li><strong>JSX Support (No):</strong> JSX is a syntax for writing HTML in JavaScript (used by React). Vue uses HTML-like templates by default, which are more beginner-friendly.</li>
+                                <li><strong>Vue Router (No):</strong> Used for managing "pages" (e.g., <code>/home</code>, <code>/about</code>). Our app is a single page.</li>
+                                <li><strong>Pinia (No):</strong> A state management library. Useful for large apps where many components need to share data.</li>
+                                <li><strong>Vitest (No):</strong> Used for "unit testing," which is outside the scope of this tutorial.</li>
+                                <li><strong>ESLint (Yes):</strong> <strong>(Recommended)</strong> A "linter" that checks your code for errors as you type, saving you from common bugs.</li>
+                                <li><strong>Prettier (Yes):</strong> <strong>(Recommended)</strong> A "code formatter" that automatically standardizes your code style (like indentation and semicolons).</li>
+                            </ul>
+                            <p>After selecting <strong>ESLint</strong> and <strong>Prettier</strong>, press <strong>Enter</strong> to confirm.</p>
+                        </li>
+                        <li>
+                            <p><strong>"Select experimental features"</strong></p>
+<pre><code class="language-text">◇  Select experimental features to include in your project: (↑/↓ to navigate, space to select, a to toggle all, enter to
+confirm)
+│  none</code></pre>
+                            <p><strong>Selection:</strong> We don't need any experimental features. Just press <strong>Enter</strong> to skip (keeping <code>none</code>).</p>
+                        </li>
+                        <li>
+                            <p><strong>"Skip all example code"</strong></p>
+<pre><code class="language-text">◇  Skip all example code and start with a blank Vue project?
+│  No</code></pre>
+                            <p><strong>Selection:</strong> <strong>No</strong> (Press <strong>Enter</strong> to select the default "No").<br>
+                            <strong>Explanation:</strong> We want it to generate the example <code>App.vue</code> file so we have a base to modify.</p>
+                        </li>
+                        <li>
+                            <p><strong>Done!</strong><br>
+                            The tool will scaffold your project and display:</p>
+<pre><code class="language-bash">Scaffolding project in /home/heshanws/vue-highland-games...
+│
+└  Done. Now run:
+
+  cd vue-highland-games
+  npm install
+  npm run dev</code></pre>
+                        </li>
+                        <li>
+                            <p><strong>Start the project</strong>:<br>
+                            Follow the instructions in your terminal to enter the project and start it:</p>
+<pre><code class="language-bash">cd vue-highland-games
+npm install     # Installs all dependencies
+npm run dev     # Starts the development server</code></pre>
+                        </li>
+                        <li>
+                            <p>In your <strong>Windows browser</strong>, open the address it shows (usually <code>http://localhost:5173/</code>). You will see the Vue welcome page!</p>
+                        </li>
+                    </ol>
+
+                    <h2>Part 3: Introduction to Core Modules (Composition API)</h2>
+                    <p>Before building, you must understand Vue's core concepts.</p>
+
+                    <h3>1. Single File Component (SFC)</h3>
+                    <p>A Vue project is made of <code>.vue</code> files. Each file is a component, containing three parts:</p>
+                    <ul>
+                        <li><code>&lt;template&gt;</code>: Holds the HTML structure.</li>
+                        <li><code>&lt;script setup&gt;</code>: Holds the JavaScript logic (<strong>All our code will go here</strong>).</li>
+                        <li><code>&lt;style scoped&gt;</code>: Holds the CSS styles (<code>scoped</code> means the styles only apply to this component).</li>
+                    </ul>
+
+                    <h3>2. Reactivity (<code>ref</code>)</h3>
+                    <p>This is Vue's "magic".</p>
+                    <ul>
+                        <li><strong>Function:</strong> <code>ref</code> converts a normal JS variable (like a string, number, or array) into a "reactive reference".</li>
+                        <li><strong>Usage:</strong> When you change the value of this reference, Vue automatically updates every part of the <code>&lt;template&gt;</code> that uses it.</li>
+                        <li><strong>Note:</strong> In <code>&lt;script&gt;</code>, you <strong>must</strong> use <code>.value</code> to access or modify its value.</li>
+                        <li><strong>Example:</strong></li>
+                    </ul>
+<pre><code class="language-javascript">import { ref } from 'vue'
+const message = ref('Hello')
+console.log(message.value) // "Hello"
+message.value = 'Goodbye'  // This will trigger an update</code></pre>
+
+                    <h3>3. Template Syntax</h3>
+                    <ul>
+                        <li><strong>Interpolation (<code>{{ }}</code>)</strong>: <code>&lt;h1&gt;{{ message }}&lt;/h1&gt;</code>. Used to display a <code>ref</code>'s value in the HTML.</li>
+                        <li><strong>Attribute Binding (<code>:</code>)</strong>: Short for <code>v-bind</code>. Used to dynamically bind HTML attributes.
+<pre><code class="language-html">&lt;!-- Wrong: 'my-class' is a plain string --&gt;
+&lt;div class="my-class"&gt;&lt;/div&gt;
+&lt;!-- Correct: :class is bound to the JS variable myClassName --&gt;
+&lt;div :class="myClassName"&gt;&lt;/div&gt;</code></pre>
+                        </li>
+                        <li><strong>Event Listening (<code>@</code>)</strong>: Short for <code>v-on</code>. Used to listen for DOM events (like a click).
+<pre><code class="language-html">&lt;button @click="myFunction"&gt;Click Me&lt;/button&gt;</code></pre>
+                        </li>
+                    </ul>
+
+                    <h3>4. Common Directives</h3>
+                    <ul>
+                        <li><strong><code>v-model</code> (Two-Way Binding)</strong>: The perfect partner for <code>ref</code>. It "binds" a form input to a <code>ref</code> variable in both directions.
+<pre><code class="language-html">&lt;input v-model="message"&gt;</code></pre>
+                        <p>(Now, the input's content and <code>message.value</code> will always be in sync.)</p>
+                        </li>
+                        <li><strong><code>v-if</code> / <code>v-else</code> (Conditional Rendering)</strong>:
+<pre><code class="language-html">&lt;p v-if="events.length &gt; 0"&gt;You still have events.&lt;/p&gt;
+&lt;p v-else&gt;No events left.&lt;/p&gt;</code></pre>
+                        </li>
+                        <li><strong><code>v-for</code> (List Rendering)</strong>:
+<pre><code class="language-html">&lt;ul&gt;
+  &lt;li v-for="event in events" :key="event.id"&gt;
+    {{ event.name }}
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+                        <p>( <strong><code>key</code> is required.</strong> It helps Vue efficiently track each item.)</p>
+                        </li>
+                    </ul>
+
+                    <h3>5. Component Communication</h3>
+                    <ul>
+                        <li><strong><code>defineProps</code></strong>: How a child component <strong>receives</strong> data from its parent.</li>
+                        <li><strong><code>defineEmits</code></strong>: How a child component <strong>sends a message</strong> (emits an event) to its parent (e.g., "Please delete me!").</li>
+                    </ul>
+
+                    <h3>6. Lifecycle (<code>onMounted</code>)</h3>
+                    <p><code>onMounted</code> is a "lifecycle hook" that runs automatically <strong>after</strong> the component has been rendered to the page. It's the perfect time to <strong>fetch initial data</strong> from a server or local storage.</p>
+
+                    <h3>7. Watcher (<code>watch</code>)</h3>
+                    <p><code>watch</code> is used to "watch" a <code>ref</code>. As soon as that <code>ref</code>'s value changes, the <code>watch</code> function will run. It's the perfect time to <strong>save data</strong>.</p>
+
+                    <h2>Part 4: Building the Project (The Event Planner)</h2>
+                    <p>Now, let's combine all these modules!</p>
+                    <p><strong>Goal:</strong> Build an app that can add, delete, and <strong>persist</strong> events (data won't be lost on refresh).</p>
+                    <p>In your <code>vue-highland-games</code> project, you will only edit **two files**:</p>
+                    <ol>
+                        <li><code>src/App.vue</code> (The main parent component)</li>
+                        <li><code>src/components/EventItem.vue</code> (A new child component you will create)</li>
+                    </ol>
+
+                    <h3>Step 1: <code>App.vue</code> (The Parent Component)</h3>
+                    <p>Open <code>src/App.vue</code> and replace <strong>all</strong> of its content with the following code. This is your "main" component.</p>
+<pre><code class="language-html">&lt;!-- src/App.vue --&gt;
+&lt;script setup&gt;
+// Modules: Import all needed functions
+import { ref, onMounted, watch } from 'vue'
+// Modules: Import the child component
+import EventItem from './components/EventItem.vue'
+
+// --- State Definition ---
+const newEventName = ref('')
+const events = ref([]) // Start with an empty array
+const STORAGE_KEY = 'vue-highland-events'
+
+// --- Data Persistence ---
+
+// Modules: Lifecycle (onMounted)
+// 1. This function runs automatically when the component loads
+onMounted(() => {
+  const savedEvents = localStorage.getItem(STORAGE_KEY)
+  if (savedEvents) {
+    events.value = JSON.parse(savedEvents)
+  }
+})
+
+// Modules: Watcher (watch)
+// 2. Watch the 'events' array. As soon as it changes, save it.
+watch(events, (newEventList) => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(newEventList))
+}, { 
+  // 'deep: true' is essential for watching inside the array
+  deep: true 
+})
+
+// --- Core Logic (Functions) ---
+
+// 3. Function to add a new event
+function addEvent() {
+  if (newEventName.value.trim() === '') return
+  
+  events.value.push({
+    id: Date.now(), // Use a timestamp as a unique ID
+    name: newEventName.value
+  })
+  
+  newEventName.value = '' // Clear the input box
+}
+
+// 4. Function to handle the delete request from a child
+function handleDelete(eventId) {
+  events.value = events.value.filter(event => event.id !== eventId)
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;main&gt;
+    &lt;h1&gt;Highland Games Event Planner&lt;/h1&gt;
+    
+    &lt;form @submit.prevent="addEvent"&gt;
+      &lt;input 
+        v-model="newEventName" 
+        placeholder="Enter a new event..."&gt;
+      &lt;button type="submit"&gt;Add Event&lt;/button&gt;
+    &lt;/form&gt;
+    
+    &lt;h2&gt;Event List&lt;/h2&gt;
+    
+    &lt;ul v-if="events.length &gt; 0"&gt;
+      &lt;EventItem 
+        v-for="event in events" 
+        :key="event.id"
+        :event="event"
+        @delete-event="handleDelete"
+      /&gt;
+    &lt;/ul&gt;
+    
+    &lt;p v-else&gt;
+      All clear! Add your first event.
+    &lt;/p&gt;
+
+  &lt;/main&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+/* Global styles (no 'scoped' attribute) */
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+  background: #f4f4f4; 
+}
+main { 
+  max-width: 600px; 
+  margin: 40px auto; 
+  padding: 20px 40px; 
+  background: #fff; 
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+h1 {
+  color: #42b883; /* Vue Green */
+  text-align: center;
+}
+h2 {
+  color: #333;
+  border-bottom: 2px solid #f4f4f4;
+  padding-bottom: 10px;
+}
+form {
+  display: flex;
+  margin-bottom: 20px;
+}
+input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #eee;
+  border-radius: 4px;
+}
+button {
+  background: #42b883; 
+  color: white; 
+  border: none;
+  padding: 10px 15px;
+  margin-left: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+button:hover {
+  background: #36a473;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+p {
+  text-align: center;
+  color: #888;
+}
+&lt;/style&gt;</code></pre>
+
+                    <h3>Step 2: <code>EventItem.vue</code> (The Child Component)</h3>
+                    <ol>
+                        <li>Create a new folder named <code>components</code> inside your <code>src</code> folder (if it's not already there).</li>
+                        <li>Inside <code>src/components/</code>, create a new file named <code>EventItem.vue</code>.</li>
+                        <li>Paste the following <strong>complete</strong> code.</li>
+                    </ol>
+<pre><code class="language-html">&lt;!-- src/components/EventItem.vue --&gt;
+&lt;script setup&gt;
+// Modules: Props and Emits
+// 1. Declare that it receives an 'event' object from its parent (App.vue)
+//    We must assign the return value of defineProps to a 'props' constant
+//    so we can access it in our &lt;script&gt; logic (like in requestDelete)
+const props = defineProps({
+  event: {
+    type: Object,
+    required: true
+  }
+})
+
+// 2. Declare that this component will emit a 'delete-event' event
+const emit = defineEmits(['delete-event'])
+
+// 3. This function is called when the delete button is clicked
+function requestDelete() {
+  // 4. CRITICAL: Emit the 'delete-event' and pass the ID
+  //    (props.event.id is now accessible thanks to our 'props' constant)
+  //    App.vue is listening for this and will receive the ID
+  emit('delete-event', props.event.id)
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;!-- This is each row in the list --&gt;
+  &lt;li class="event-item"&gt;
+    &lt;!-- Display the event name from the received prop --&gt;
+    <span class="event-name">{{ event.name }}</span>
+    
+    &lt;!-- Module: Event Listening --&gt;
+    &lt;!-- Call our requestDelete function on click --&gt;
+    &lt;button @click="requestDelete" class="delete-btn"&gt;Delete&lt;/button&gt;
+  &lt;/li&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+/* 'scoped' means these styles ONLY apply to this component */
+.event-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.event-name {
+  color: #333;
+}
+.delete-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 0.9em;
+}
+.delete-btn:hover {
+  background-color: #e60000;
+}
+&lt;/style&gt;</code></pre>
+
+                    <h2>Part 5: Final Code Dissection</h2>
+                    <p>You've built the app. Now, let's understand exactly <em>why</em> it works.</p>
+
+                    <h3>1. <code>App.vue</code> (The Parent Component / State Manager)</h3>
+                    <p><code>App.vue</code> acts as the "brain" of your project. It manages all the data (state) and core logic.</p>
+                    <p><strong><code>App.vue</code> <code>&lt;script setup&gt;</code> Dissection:</strong></p>
+                    <ul>
+                        <li><code>import { ref, onMounted, watch }</code>
+                            <ul>
+                                <li><code>ref</code>: Creates all reactive data (<code>newEventName</code>, <code>events</code>).</li>
+                                <li><code>onMounted</code>: <strong>Loads Data</strong>. A lifecycle hook that runs <strong>once</strong> when the component first loads. We use it to read from <code>localStorage</code>, enabling persistence.</li>
+                                <li><code>watch</code>: <strong>Saves Data</strong>. A listener that "watches" the <code>events</code> array. As soon as <code>events</code> changes (add or delete), the <code>watch</code> function runs, saving the new array to <code>localStorage</code>. <code>{ deep: true }</code> is essential for it to watch <em>inside</em> the array.</li>
+                            </ul>
+                        </li>
+                        <li><code>const events = ref([])</code>
+                            <ul>
+                                <li>This is the <strong>"Single Source of Truth"</strong> for the application. All events are stored here.</li>
+                            </ul>
+                        </li>
+                        <li><code>function addEvent() { ... }</code>
+                            <ul>
+                                <li>This function <strong>mutates</strong> the <code>events</code> array by <code>.push()</code>ing a new object with a unique ID (<code>Date.now()</code>).</li>
+                            </ul>
+                        </li>
+                        <li><code>function handleDelete(eventId) { ... }</code>
+                            <ul>
+                                <li>This function also <strong>mutates</strong> the <code>events</code> array. It uses <code>.filter()</code>—a modern, immutable JS practice. It doesn't modify the original array but returns a <strong>new</strong> array <em>without</em> the deleted item. Vue detects that <code>events.value</code> was assigned a new array and updates the view.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong><code>App.vue</code> <code>&lt;template&gt;</code> Dissection:</strong></p>
+                    <ul>
+                        <li><code>&lt;form @submit.prevent="addEvent"&gt;</code>
+                            <ul>
+                                <li><code>@submit.prevent</code>: This is beautiful Vue syntax. <code>@submit</code> listens for the form submission (like pressing Enter). <code>.prevent</code> is a <strong>modifier</strong> that automatically calls <code>event.preventDefault()</code>, stopping the page from reloading.</li>
+                            </ul>
+                        </li>
+                        <li><code>&lt;EventItem ... /&gt;</code> (The most critical interaction)
+                            <ul>
+                                <li><code>v-for="event in events" :key="event.id"</code>: Loops through the <code>events</code> array, creating one <code>EventItem</code> component instance for each object. <code>:key</code> is required for performance.</li>
+                                <li><code>:event="event"</code>: <strong>"Props Down"</strong>. The parent <code>App.vue</code> <strong>passes</strong> the individual <code>event</code> object <em>down</em> to the child <code>EventItem</code> via a prop named <code>event</code>.</li>
+                                <li><code>@delete-event="handleDelete"</code>: <strong>"Events Up"</strong>. The parent <code>App.vue</code> <strong>listens</strong> for a <strong>custom event</strong> named <code>delete-event</code> emitted by the child. When it "hears" this event, it calls its own <code>handleDelete</code> function.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>2. Example of Angular Code:</h3>
+                    <p><code>EventItem.vue</code> is a "dumb" component (or "presentational component"). It doesn't manage any state. Its only jobs are:</p>
+                    <ol>
+                        <li>Display the data it's given (via <code>props</code>).</li>
+                        <li>Tell the parent when something needs to happen (via <code>emit</code>).</li>
+                    </ol>
+                    <p><strong><code>EventItem.vue</code> <code>&lt;script setup&gt;</code> Dissection:</strong></p>
+                    <ul>
+                        <li><code>const props = defineProps({ event: Object })</code>
+                            <ul>
+                                <li><strong>!! Critical Fix !!</strong> <code>defineProps</code> is a macro that <strong>returns</strong> an object containing all declared props. We <strong>must</strong> assign this to a <code>props</code> constant. This is how we access the data inside our <code>&lt;script&gt;</code> logic (e.g., in the <code>requestDelete</code> function) using <code>props.event</code>.</li>
+                            </ul>
+                        </li>
+                        <li><code>const emit = defineEmits(['delete-event'])</code>
+                            <ul>
+                                <li>This line declares all <strong>events</strong> this component is allowed to emit. It tells Vue, "I might emit a 'delete-event' at some point."</li>
+                            </ul>
+                        </li>
+                        <li><code>function requestDelete() { ... }</code>
+                            <ul>
+                                <li>A local function called when the user clicks the "Delete" button.</li>
+                                <li><code>emit('delete-event', props.event.id)</code>: This is the "Event Up" in action. It <strong>emits</strong> the event we declared, and attaches a <strong>payload</strong> (<code>props.event.id</code>). This payload is passed directly to the parent's listener function (i.e., <code>App.vue</code>'s <code>handleDelete(eventId)</code>).</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>Data Flow Summary:</h3>
+                    <ol>
+                        <li><strong>Data Flow:</strong> <code>App.vue</code> &rarr; <code>events</code> array &rarr; <code>v-for</code> &rarr; <code>:event</code> prop &rarr; <code>EventItem.vue</code> (Data flows <strong>down</strong>).</li>
+<li><strong>Event Flow:</strong> <code>EventItem.vue</code> (User Click) &rarr; <code>requestDelete()</code> &rarr; <code>emit('delete-event', id)</code> &rarr; <code>App.vue</code> (<code>@delete-event="handleDelete"</code>) &rarr; <code>handleDelete(id)</code> function (Events flow <strong>up</strong>).</li>
+                    </ol>
+
+                    <hr style="margin-top: 3rem; margin-bottom: 2rem;">
+                    <h2>Tutorial Complete!</h2>
+                    <p>You have successfully built a complete Vue.js application from scratch. You've learned not only how to set up your environment and write code, but more importantly, you've understood Vue's core <strong>component-based, reactive system</strong> and the fundamental design pattern of <strong>"Props Down, Events Up"</strong>.</p>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- =======================
+         JavaScript Logic
+    ======================== -->
+    <script>
+        // Activate code highlighting
+        hljs.highlightAll();
+
+        // Store the currently active link and page
+        let activeLink = document.querySelector('.nav-link.active-link');
+        let activePage = document.getElementById('page-home');
+
+        function showPage(pageId) {
+            // 1. Get the new page to show
+            const newPage = document.getElementById('page-' + pageId);
+            if (newPage === activePage) {
+                return; // Do nothing if clicking the currently active page
+            }
+
+            // 2. Hide the currently active page
+            if (activePage) {
+                activePage.style.display = 'none';
+            }
+
+            // 3. Show the new page
+            if (newPage) {
+                newPage.style.display = 'block';
+                activePage = newPage;
+            }
+
+            // 4. Update the active state in the navbar
+            // Remove active styles from the old link
+            if (activeLink) {
+                activeLink.classList.remove('active-link', 'text-gray-900', 'border-indigo-500');
+                activeLink.classList.add('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300', 'border-transparent');
+            }
+
+            // 5. Add active styles to the newly clicked link
+            const newLink = document.querySelector(`a[onclick="showPage('${pageId}')"]`);
+            if (newLink) {
+                newLink.classList.add('active-link', 'text-gray-900', 'border-indigo-500');
+                newLink.classList.remove('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300', 'border-transparent');
+                activeLink = newLink;
+            }
+
+            // 6. Scroll to top when changing pages
+            window.scrollTo(0, 0);
+        }
+        
+        // Initialize variables on load
+        activeLink = document.querySelector('.nav-link.active-link');
+        activePage = document.getElementById('page-home');
+
+    </script>
+</body>
 </html>
